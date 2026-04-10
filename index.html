@@ -1254,7 +1254,35 @@
       }
     };
 
-    const TYPE_IMAGES = {};
+    const TYPE_IMAGES = {
+  "韭菜": "./image/韭菜.png",
+  "庄家": "./image/庄家.png",
+  "追涨杀跌": "./image/追涨杀跌.png",
+  "抄底王": "./image/抄底王.png",
+  "踏空者": "./image/踏空者.png",
+  "装死韭菜": "./image/装死韭菜.png",
+  "割韭菜": "./image/割韭菜.png",
+  "价值投资": "./image/价值投资.png",
+  "量化韭菜": "./image/量化韭菜.png",
+  "杠杆战士": "./image/杠杆战士.png",
+  "佛系定投": "./image/佛系定投.png",
+  "技术分析大师": "./image/技术分析大师.png",
+  "内幕消息韭菜": "./image/内幕消息韭菜.png",
+  "做T高手": "./image/做T高手.png",
+  "爆仓预备役": "./image/爆仓预备役.png",
+  "解套专家": "./image/解套专家.png",
+  "牛市股神": "./image/牛市股神.png",
+  "止损困难户": "./image/止损困难户.png",
+  "回本就走": "./image/回本就走.png",
+  "盯盘焦虑": "./image/盯盘焦虑.png",
+  "满仓干": "./image/满仓干.png",
+  "老油条": "./image/老油条.png",
+  "ETF定投侠": "./image/ETF定投侠.png",
+  "新股专业户": "./image/新股专业户.png",
+  "研报复读机": "./image/研报复读机.png",
+  "财务自由梦": "./image/财务自由梦.png",
+  "韭菜合唱团": "./image/韭菜合唱团.png"
+};
 
     const NORMAL_TYPES = [
       { "code": "韭菜", "pattern": "HHH-HMH-MHH-HHH-MHM" },
@@ -1483,9 +1511,16 @@
 
       const posterBox = document.getElementById('posterBox');
       const posterImage = document.getElementById('posterImage');
-      posterImage.removeAttribute('src');
-      posterImage.alt = '';
-      posterBox.classList.add('no-image');
+      const imageSrc = TYPE_IMAGES[type.code];
+      if (imageSrc) {
+        posterImage.src = imageSrc;
+        posterImage.alt = `${type.code}（${type.cn}）`;
+        posterBox.classList.remove('no-image');
+      } else {
+        posterImage.removeAttribute('src');
+        posterImage.alt = '';
+        posterBox.classList.add('no-image');
+      }
 
       renderDimList(result);
       showScreen('result');
