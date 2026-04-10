@@ -1240,9 +1240,7 @@
         "intro": "大家都在买，我也买！大家都在卖，我...等等，为啥卖？",
         "desc": "你是A股最合群的投资者，买卖股票的主要依据是'大家都在买/卖'。你觉得跟着大部队走准没错，殊不知大部队往往是错误的。你从不研究基本面技术面，觉得'人民群众的眼光是雪亮的'。韭菜合唱团的特点是：买在最高点，卖在最低点，因为最高点和最低点永远是成交量最大、散户最涌入的时候。你不是一个人，你是中国1.9亿韭菜之一。"
       }
-    };
-
-    const TYPE_IMAGES = {
+    };    const TYPE_IMAGES = {
   "韭菜": "./image/韭菜.png",
   "庄家": "./image/庄家.png",
   "抄底王": "./image/抄底王.png",
@@ -1269,6 +1267,24 @@
   "财务自由梦": "./image/财务自由梦.png",
   "韭菜合唱团": "./image/韭菜合唱团.png"
 };
+  "追涨杀跌": {
+    "code": "追涨杀跌",
+    "cn": "追涨杀跌者",
+    "intro": "买在最高点，卖在最低点，我是天才。",
+    "desc": "你是A股最忠实的趋势投资者，只不过是反着追的那种。别人贪婪你更贪婪，别人恐惧你更恐惧。你用血肉之躯诠释了什么叫高买低卖的终极奥义。"
+  },
+  "回本就走": {
+    "code": "回本就走",
+    "cn": "誓言王者",
+    "intro": "这次回本了我绝对不玩了，真的。",
+    "desc": "你是A股最守信用的人——每次都在兑现回本就卖的誓言，只不过兑现的方向是反的。"
+  },
+  "懒惰者": {
+    "code": "懒惰者",
+    "cn": "OJBK懒人",
+    "intro": "随便随便，差不多就行了。",
+    "desc": "恭喜你，你是A股最佛系的投资者。你的人生哲学是差不多得了。你只有一个信仰：OJBK——随便啦，都行，没关系。"
+  },
 
     const NORMAL_TYPES = [
       { "code": "韭菜", "pattern": "HHH-HMH-MHH-HHH-MHM" },
@@ -1446,9 +1462,17 @@
 
       const bestNormal = ranked[0];
       const drunkTriggered = getDrunkTriggered();
+      const answeredCount = Object.keys(app.answers).length;
+      const isLazy = answeredCount <= 2;
       let finalType, modeKicker = '你的主类型', badge = `匹配度 ${bestNormal.similarity}% · 精准命中 ${bestNormal.exact}/15 维`, sub = '维度命中度较高，当前结果可视为你的第一韭菜画像。', special = false, secondaryType = null;
 
-      if (drunkTriggered) {
+      if (isLazy) {
+        finalType = TYPE_LIBRARY['懒惰者'];
+        modeKicker = '懒惰专属人格';
+        badge = '系统判定 · 懒到极致';
+        sub = '只答了' + answeredCount + '道题就敢提交？你是懒到骨子里了。';
+        special = true;
+      } else if (drunkTriggered) {
         finalType = TYPE_LIBRARY['爆仓预备役'];
         secondaryType = bestNormal;
         modeKicker = '隐藏人格已激活';
