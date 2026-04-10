@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>股票韭菜人格测试</title>
+  <title>股票韭菜SBTI测试</title>
   <style>
     :root {
       --bg: #f6faf6;
@@ -687,23 +687,13 @@
   <div class="shell">
     <section id="intro" class="screen active">
       <div class="hero card hero-minimal">
-        <h1>A股已经疯涨，你还觉得自己是韭菜吗？</h1>
+        <h1>股票韭菜SBTI - 测测你是哪种韭菜？</h1>
         <div class="hero-actions hero-actions-single">
           <button id="startBtn" class="btn-primary">开始测试</button>
         </div>
         <div style="padding-top: 2rem; display: flex; flex-direction: column;">
-          <span>
-            原作者：
-            <a href="https://space.bilibili.com/417038183">B站@蛆肉儿串儿</a>
-          </span>
-          <span style="margin-top: 8px; color: var(--muted);">
-            改编：股票韭菜版
-          </span>
-          <span>
-            托管：Cloudflare (免费)
-          </span>
-          <span>
-            域名：Spaceship (自费)
+          <span style="color: var(--muted);">
+            股市有风险，入市需谨慎
           </span>
         </div>
       </div>
@@ -1359,26 +1349,26 @@
       visibleQuestions.forEach((q, index) => {
         const card = document.createElement('article');
         card.className = 'question';
-        card.innerHTML = \`
+        card.innerHTML = `
           <div class="question-meta">
-            <div class="badge">第 \${index + 1} 题</div>
-            <div>\${getQuestionMetaLabel(q)}</div>
+            <div class="badge">第 ${index + 1} 题</div>
+            <div>${getQuestionMetaLabel(q)}</div>
           </div>
-          <div class="question-title">\${q.text}</div>
+          <div class="question-title">${q.text}</div>
           <div class="options">
-            \${q.options.map((opt, i) => {
+            ${q.options.map((opt, i) => {
               const code = ['A', 'B', 'C', 'D'][i] || String(i + 1);
               const checked = app.answers[q.id] === opt.value ? 'checked' : '';
-              return \`
+              return `
                 <label class="option">
-                  <input type="radio" name="\${q.id}" value="\${opt.value}" \${checked} />
-                  <div class="option-code">\${code}</div>
-                  <div>\${opt.label}</div>
+                  <input type="radio" name="${q.id}" value="${opt.value}" ${checked} />
+                  <div class="option-code">${code}</div>
+                  <div>${opt.label}</div>
                 </label>
-              \`;
+              `;
             }).join('')}
           </div>
-        \`;
+        `;
         questionList.appendChild(card);
       });
 
@@ -1402,8 +1392,8 @@
       const total = visibleQuestions.length;
       const done = visibleQuestions.filter(q => app.answers[q.id] !== undefined).length;
       const percent = total ? (done / total) * 100 : 0;
-      progressBar.style.width = \`\${percent}%\`;
-      progressText.textContent = \`\${done} / \${total}\`;
+      progressBar.style.width = `${percent}%`;
+      progressText.textContent = `${done} / ${total}`;
       const complete = done === total && total > 0;
       submitBtn.disabled = !complete;
       testHint.textContent = complete ? '都做完了。现在把你的韭菜身份交给结果页审判。' : '全选完才会放行。世界已经够乱了，起码把题做完整。';
@@ -1441,7 +1431,7 @@
 
       const bestNormal = ranked[0];
       const drunkTriggered = getDrunkTriggered();
-      let finalType, modeKicker = '你的主类型', badge = \`匹配度 \${bestNormal.similarity}% · 精准命中 \${bestNormal.exact}/15 维\`, sub = '维度命中度较高，当前结果可视为你的第一韭菜画像。', special = false, secondaryType = null;
+      let finalType, modeKicker = '你的主类型', badge = `匹配度 ${bestNormal.similarity}% · 精准命中 ${bestNormal.exact}/15 维`, sub = '维度命中度较高，当前结果可视为你的第一韭菜画像。', special = false, secondaryType = null;
 
       if (drunkTriggered) {
         finalType = TYPE_LIBRARY['爆仓预备役'];
@@ -1453,7 +1443,7 @@
       } else if (bestNormal.similarity < 60) {
         finalType = TYPE_LIBRARY['韭菜合唱团'];
         modeKicker = '系统强制兜底';
-        badge = \`标准韭菜库最高匹配仅 \${bestNormal.similarity}%\`;
+        badge = `标准韭菜库最高匹配仅 ${bestNormal.similarity}%`;
         sub = '你的韭菜特征太明显了，系统已把你强制分配给韭菜合唱团。';
         special = true;
       } else {
@@ -1468,15 +1458,15 @@
       dimList.innerHTML = dimensionOrder.map(dim => {
         const level = result.levels[dim];
         const explanation = DIM_EXPLANATIONS[dim][level];
-        return \`
+        return `
           <div class="dim-item">
             <div class="dim-item-top">
-              <div class="dim-item-name">\${dimensionMeta[dim].name}</div>
-              <div class="dim-item-score">\${level} / \${result.rawScores[dim]}分</div>
+              <div class="dim-item-name">${dimensionMeta[dim].name}</div>
+              <div class="dim-item-score">${level} / ${result.rawScores[dim]}分</div>
             </div>
-            <p>\${explanation}</p>
+            <p>${explanation}</p>
           </div>
-        \`;
+        `;
       }).join('');
     }
 
@@ -1484,7 +1474,7 @@
       const result = computeResult();
       const type = result.finalType;
       document.getElementById('resultModeKicker').textContent = result.modeKicker;
-      document.getElementById('resultTypeName').textContent = \`\${type.code}（\${type.cn}）\`;
+      document.getElementById('resultTypeName').textContent = `${type.code}（${type.cn}）`;
       document.getElementById('matchBadge').textContent = result.badge;
       document.getElementById('resultTypeSub').textContent = result.sub;
       document.getElementById('resultDesc').textContent = type.desc;
